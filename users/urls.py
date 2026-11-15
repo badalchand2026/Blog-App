@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import UserRegistrationView, UserLoginView, UserRefreshTokenView
+from .views import UserRegistrationView, UserLoginView, UserRefreshTokenView, UserProfileView, AdminTestView
 
 urlpatterns = [
     path(
@@ -19,5 +19,15 @@ urlpatterns = [
         "refresh/",
         UserRefreshTokenView.as_view(),
         name="user-refresh"
+    ),
+
+    path(
+        "profile/",
+        UserProfileView.as_view(), name="user-profile"
+    ),
+
+    path(
+        "admin-test/",
+        AdminTestView.as_view(), name="admin-test"
     )
 ]
