@@ -1,9 +1,10 @@
-# Django Blog Application
+# BlogApp – Full-Stack Blog Application
 
-A backend-focused Blog Application built using Django REST Framework and PostgreSQL. The application provides JWT authentication, role-based access control, and blog management functionality.
+A full-stack Blog Application built using **Django REST Framework, PostgreSQL, React, and Tailwind CSS**. The application provides secure JWT authentication, role-based access control, and blog management functionality.
 
 ## Technologies Used
 
+### Backend
 - Python
 - Django
 - Django REST Framework
@@ -11,22 +12,28 @@ A backend-focused Blog Application built using Django REST Framework and Postgre
 - Simple JWT
 - django-filter
 
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- React Router DOM
+- Axios
+- React Toastify
+
 ## Features
 
 ### Authentication
-- User registration
-- JWT-based login
+- User registration and login
+- JWT-based authentication
 - Access and refresh tokens
-- Token refresh
 - Authenticated user profile
-- Role-based permissions
+- Role-based access control
 
 ### User Roles
 
 **ADMIN**
 - Create blogs
-- Update blogs
-- Delete blogs
+- Update and delete blogs
 - Publish and manage blogs
 - View published and unpublished blogs
 
@@ -34,42 +41,36 @@ A backend-focused Blog Application built using Django REST Framework and Postgre
 - Register and log in
 - View published blogs
 - Search and filter blogs
-- Access their authenticated profile
+- Read blog details
 
 ### Blog Management
-- Create, read, update, and delete blogs
+- Complete blog CRUD operations
 - Unique blog slugs
-- Publish and draft status
+- Published and draft status
 - Author information
-- Creation and update timestamps
-- Pagination
 - Search and filtering
+- Pagination
 
 ## Project Structure
 
 ```text
-DjangoBlog/
-├── blogs/
-│   ├── migrations/
-│   ├── admin.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-├── config/
-│   ├── settings.py
-│   └── urls.py
-├── users/
-│   ├── migrations/
-│   ├── models.py
-│   ├── permissions.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-├── .gitignore
-├── manage.py
-└── requirements.txt
+BlogApp/
+├── client/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── context/
+│       ├── pages/
+│       └── services/
+│
+├── server/
+│   ├── blogs/
+│   ├── config/
+│   ├── users/
+│   ├── manage.py
+│   └── requirements.txt
+│
+└── README.md
 ```
 
 ## Installation and Setup
@@ -81,53 +82,73 @@ git clone https://github.com/badalchand2026/Blog-App.git
 cd Blog-App
 ```
 
-### 2. Create a virtual environment
+### 2. Backend Setup
 
 ```bash
+cd server
 python -m venv .venv
 ```
 
-Activate it on Windows:
+Activate the virtual environment on Windows:
 
 ```powershell
 .venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 3. Configure Environment Variables
 
-Create a `.env` file in the project root.
+Create a `.env` file inside the `server` directory and configure your Django secret key and PostgreSQL database credentials according to `server/config/settings.py`.
 
-Configure your Django secret key and PostgreSQL database credentials according to the settings in `config/settings.py`.
+Never upload your actual `.env` file to GitHub.
 
-Do not upload your `.env` file to GitHub.
-
-### 5. Run migrations
+### 4. Run Database Migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 6. Create an admin account
+Create an administrator:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 7. Start the development server
+Start the backend:
 
 ```bash
 python manage.py runserver
 ```
 
-The application will run at:
+Backend URL: http://127.0.0.1:8000/
 
-`http://127.0.0.1:8000/`
+### 5. Frontend Setup
+
+Open another terminal:
+
+```bash
+cd client
+npm install
+```
+
+Create a `.env` file in the `client` directory:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/api
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
+
+Frontend URL: http://localhost:5173/
 
 ## API Endpoints
 
@@ -136,54 +157,32 @@ The application will run at:
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/api/auth/register/` | Register a user |
-| POST | `/api/auth/login/` | User login |
+| POST | `/api/auth/login/` | Login |
 | POST | `/api/auth/refresh/` | Refresh JWT token |
-| GET | `/api/auth/profile/` | Get authenticated profile |
-| GET | `/api/auth/admin-test/` | Test admin access |
+| GET | `/api/auth/profile/` | Get user profile |
 
 ### Blogs
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/blogs/` | List blogs |
-| POST | `/api/blogs/` | Create a blog (ADMIN) |
+| POST | `/api/blogs/` | Create blog (ADMIN) |
 | GET | `/api/blogs/{id}/` | Get blog details |
-| PUT | `/api/blogs/{id}/` | Update a blog (ADMIN) |
-| PATCH | `/api/blogs/{id}/` | Partially update a blog (ADMIN) |
-| DELETE | `/api/blogs/{id}/` | Delete a blog (ADMIN) |
-
-### Search, Filtering and Pagination
-
-```text
-/api/blogs/?page=2
-/api/blogs/?search=Django
-/api/blogs/?is_published=true
-```
+| PUT | `/api/blogs/{id}/` | Update blog (ADMIN) |
+| PATCH | `/api/blogs/{id}/` | Partially update blog (ADMIN) |
+| DELETE | `/api/blogs/{id}/` | Delete blog (ADMIN) |
 
 ## Testing
 
-Run authentication tests:
+Run backend tests:
 
 ```bash
 python manage.py test users
-```
-
-Run blog tests:
-
-```bash
 python manage.py test blogs
 ```
-
-## Security
-
-- Passwords are securely hashed.
-- JWT authentication protects private endpoints.
-- Role-based permissions restrict admin operations.
-- Public registration does not allow users to assign themselves the ADMIN role.
-- Environment variables and secrets are excluded from version control.
 
 ## Author
 
 **Badal Chand**
 
-GitHub: [badalchand2026](https://github.com/badalchand2026)
+GitHub: [@badalchand2026](https://github.com/badalchand2026)
