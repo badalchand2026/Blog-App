@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import api from '../services/api'
-
 // ---------- Helpers ----------
 
 const stripHtml = (text = '') =>
@@ -214,6 +214,40 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+
+    <Helmet>
+      <title>DjangoBlog | Articles on Django and Web Development</title>
+
+      <meta
+        name="description"
+        content="Explore articles about Django, Python, web development, programming, and modern technologies. Learn, discover, and improve your development skills with DjangoBlog."
+      />
+
+      <meta property="og:type" content="website" />
+
+      <meta
+        property="og:title"
+        content="DjangoBlog | Articles on Django and Web Development"
+      />
+
+      <meta
+        property="og:description"
+        content="Explore articles about Django, Python, web development, programming, and modern technologies."
+      />
+
+      <meta name="twitter:card" content="summary" />
+
+      <meta
+        name="twitter:title"
+        content="DjangoBlog | Articles on Django and Web Development"
+      />
+
+      <meta
+        name="twitter:description"
+        content="Explore articles about Django, Python, web development, programming, and modern technologies."
+      />
+      </Helmet>
+
       <div className="mx-auto max-w-6xl px-6 py-12">
         {/* Header */}
         <header className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
