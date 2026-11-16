@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import api from '../services/api'
 
 /* ------------------------------------------------------------------ */

@@ -1,5 +1,11 @@
 
-import { createContext, useContext, useState } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+
 import api from '../services/api'
 
 const AuthContext = createContext(null)
@@ -7,10 +13,29 @@ const AuthContext = createContext(null)
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const savedUser = sessionStorage.getItem('user')
-    return savedUser ? JSON.parse(savedUser) : null
+
+    try {
+      return savedUser ? JSON.parse(savedUser) : null
+    } catch {
+      sessionStorage.removeItem('user')
+      return null
+    }
   })
 
   const [loading, setLoading] = useState(false)
+
+  // Listen for an expired authentication session.
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setUser(null)
+    }
+
+    window.addEventListener('auth:logout', handleSessionExpired)
+
+    return () => {
+      window.removeEventListener('auth:logout', handleSessionExpired)
+    }
+  }, [])
 
   // Register a new USER account.
   const register = async (userData) => {
