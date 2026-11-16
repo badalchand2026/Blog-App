@@ -4,7 +4,6 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pyc
 .venv/
 venv/
 env/
@@ -15,7 +14,7 @@ db.sqlite3
 media/
 staticfiles/
 
-# Environment variables and secrets
+# Environment variables
 .env
 .env.*
 !.env.example
@@ -25,11 +24,11 @@ node_modules/
 dist/
 build/
 
-# IDE and OS files
+# IDE and OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
+# Old nested Git backup
 **/.git-backup/
-
